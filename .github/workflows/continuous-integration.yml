@@ -25,7 +25,7 @@ jobs:
           - os: windows-latest
             node-version: 20 # LTS
           - os: macos-latest
-            node-version: 22 # LTS
+            node-version: 20 # LTS
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -33,11 +33,11 @@ jobs:
         with:
           fetch-depth: 0
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --verbose
       - name: Build
         run: node packages/build/bin/compile-package -b
       - name: Run package tests
